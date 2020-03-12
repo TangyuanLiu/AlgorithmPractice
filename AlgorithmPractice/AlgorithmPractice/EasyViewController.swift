@@ -13,9 +13,30 @@ class EasyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /* 旋转数组
         var arr = [1,2,3,4,5,6,7]
         rotate(&arr, 3)
+        */
+        
+        var arr = [1,0,2,0,9,0,0,7]
+        moveZeroes(&arr)
     }
+    
+    // MARK: 移动零 2020.03.12
+    func moveZeroes(_ nums: inout [Int]) {
+        if nums.count < 1 { return }
+        var j = 0 // 记录非0的个数
+        for i in 0..<nums.count {
+            if nums[i] != 0 {
+                nums[j] = nums[i]
+                j+=1
+            }
+        }
+        for zero in j..<nums.count {
+            nums[zero] = 0
+        }
+    }
+    
     // MARK: 旋转数组 2020.03.11
     /*
      给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
