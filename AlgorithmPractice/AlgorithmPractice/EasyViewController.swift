@@ -17,12 +17,37 @@ class EasyViewController: UIViewController {
         var arr = [1,2,3,4,5,6,7]
         rotate(&arr, 3)
         */
-        
-        var arr = [1,0,2,0,9,0,0,7]
-        moveZeroes(&arr)
+        var nums1 = [4,0,0,0,0,0]
+        var nums2 = [1,2,3,5,6]
+        merge(&nums1, 1, nums2, 5)
     }
-    
+    // MARK: 合并两个有序数组 2020.03.13
+    /*
+     给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 num1 成为一个有序数组。
+     说明:
+     初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。
+     你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。
+
+     示例:
+     输入:
+     nums1 = [1,2,3,0,0,0], m = 3
+     nums2 = [2,5,6],       n = 3
+     输出: [1,2,2,3,5,6]
+     */
+    func merge(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
+        nums1.removeSubrange(m..<nums1.count)
+        nums1 = nums1 + nums2
+        nums1 = nums1.sorted()
+    }
     // MARK: 移动零 2020.03.12
+    /*
+     *给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+     示例:
+     输入: [0,1,0,3,12]
+     输出: [1,3,12,0,0]
+     说明:
+     必须在原数组上操作，不能拷贝额外的数组。尽量减少操作次数。
+     */
     func moveZeroes(_ nums: inout [Int]) {
         if nums.count < 1 { return }
         var j = 0 // 记录非0的个数
@@ -36,7 +61,6 @@ class EasyViewController: UIViewController {
             nums[zero] = 0
         }
     }
-    
     // MARK: 旋转数组 2020.03.11
     /*
      给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
@@ -138,20 +162,20 @@ class EasyViewController: UIViewController {
        输出: false
        解释: 从右向左读, 为 01 。因此它不是一个回文数。
        */
-       func isPalindrome(_ x: Int) -> Bool {
-           let str = String(format: "%ld",x)
-           let str1 = String(str.reversed())
-           return str == str1
-       }
-     // MARK: 两数之和 2020.03.07
-    /*
-     给定一个整数数组nums 和一个目标值target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
+    func isPalindrome(_ x: Int) -> Bool {
+        let str = String(format: "%ld",x)
+        let str1 = String(str.reversed())
+        return str == str1
+    }
+    // MARK: 两数之和 2020.03.07
+/*
+    给定一个整数数组nums 和一个目标值target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
 
-         示例:
-         给定 nums = [2, 7, 11, 15], target = 9
-         因为 nums[0] + nums[1] = 2 + 7 = 9
-         所以返回 [0, 1]
-     */
+        示例:
+        给定 nums = [2, 7, 11, 15], target = 9
+        因为 nums[0] + nums[1] = 2 + 7 = 9
+        所以返回 [0, 1]
+    */
     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
         for i in 0..<nums.count {
             let num1 = nums[i]
