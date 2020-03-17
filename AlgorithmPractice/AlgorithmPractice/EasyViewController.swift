@@ -22,6 +22,30 @@ class EasyViewController: UIViewController {
         var nums = [1,2,3,3,6,8]
         print(removeDuplicates(&nums))
     }
+    // MARK: 合并两个有序链表 2020.03.17
+    /*
+     将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+     示例：
+     输入：1->2->4, 1->3->4
+     输出：1->1->2->3->4->4
+     */
+    func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        if l1 == nil {
+            return l2
+        }
+        if l2 == nil {
+            return l1
+        }
+        var result: ListNode? = nil
+        if l1!.val <= l2!.val {
+            result = l1
+            result!.next = mergeTwoLists(l1?.next, l2)
+        } else {
+            result = l2
+            result!.next = mergeTwoLists(l1, l2?.next)
+        }
+        return result
+    }
     // MARK: 删除排序数组中的重复项 2020.03.16
     /*
      给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
@@ -239,4 +263,11 @@ class EasyViewController: UIViewController {
     
 }
 
-
+public class ListNode {
+    public var val: Int
+    public var next: ListNode?
+    public init (_ val: Int) {
+        self.val = val
+        self.next = nil
+    }
+}
