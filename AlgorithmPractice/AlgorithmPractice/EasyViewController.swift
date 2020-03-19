@@ -18,8 +18,76 @@ class EasyViewController: UIViewController {
         var arr = [1,2,3,4,5,6,7]
         rotate(&arr, 3)
         */
-        
-        print(majorityElement([2,2,1,1,1,1,2,2]))
+        print(longestPalindrome("abccccdd"))
+//        print(majorityElement([2,2,1,1,1,1,2,2]))
+    }
+    // MARK: 最长回文串 2020.03.19
+    /*
+     给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。
+     在构造过程中，请注意区分大小写。比如 "Aa" 不能当做一个回文字符串。
+
+     注意:假设字符串的长度不会超过 1010。
+
+     示例 1:
+     输入:
+     "abccccdd"
+     输出:
+     7
+     解释:
+     我们可以构造的最长的回文串是"dccaccd", 它的长度是 7。
+     */
+    func longestPalindrome(_ s: String) -> Int {
+        var dic:[Character: Int] = Dictionary()
+        if s.count == 0 || s.count == 1 {
+            return s.count
+        }
+        for c in s {
+            if let i = dic[c] {
+                dic[c] = i + 1
+            } else {
+                dic[c] = 1
+            }
+        }
+        let countArr = dic.values
+        let o = countArr.filter {  $0 % 2 == 0 }
+        let j = countArr.filter {  $0 % 2 != 0 }
+        // 如果字母全是偶数个 ，全都可用
+        if o.count != 0 && j.count == 0 {
+            var length = 0
+            for i in o {
+                length+=i
+            }
+            return length
+        } else if o.count == 0 && j.count != 0 {
+            var length = 0
+            for i in j {
+                length = length + i - 1
+            }
+            return length + 1
+        }else {
+            var length1 = 0
+            for i in o {
+                length1+=i
+            }
+            let arr1 = j.filter {  $0 != 1 }
+            let arr2 = j.filter {  $0 == 1 }
+            if arr1.count == 0 && arr2.count != 0 {
+                return length1 + 1
+            } else if arr1.count != 0 && arr2.count == 0 {
+                var len2 = 0
+                for i in arr1 {
+                    len2 = len2 + i - 1
+                }
+                return length1 + len2 + 1
+            } else {
+                var len2 = 0
+                for i in arr1 {
+                    len2 = len2 + i - 1
+                }
+                return length1 + len2 + 1
+            }
+        }
+        return 0
     }
     // MARK: 多数元素 2020.03.19
     /*
