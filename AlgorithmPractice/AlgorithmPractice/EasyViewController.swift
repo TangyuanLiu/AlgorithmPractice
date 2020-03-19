@@ -19,8 +19,36 @@ class EasyViewController: UIViewController {
         rotate(&arr, 3)
         */
         
-        var nums = [1,2,3,3,6,8]
-        print(removeDuplicates(&nums))
+        print(majorityElement([2,2,1,1,1,1,2,2]))
+    }
+    // MARK: 多数元素 2020.03.19
+    /*
+     给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+     你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+     示例 1:
+     输入: [3,2,3]
+     输出: 3
+     
+     示例 2:
+     输入: [2,2,1,1,1,2,2]
+     输出: 2
+     */
+    func majorityElement(_ nums: [Int]) -> Int {
+        var dic:[Int: Int] = Dictionary()
+        var count = 0
+        var result = 0
+        for item in nums {
+            if let i = dic[item] {
+                dic[item] = i + 1
+            } else {
+                dic[item] = 1
+            }
+            if dic[item]! > count {
+                count = dic[item]!
+                result = item
+            }
+        }
+        return result
     }
     // MARK:  矩形重叠 2020.03.18
     /*
