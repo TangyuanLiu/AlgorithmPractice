@@ -18,8 +18,33 @@ class EasyViewController: UIViewController {
         var arr = [1,2,3,4,5,6,7]
         rotate(&arr, 3)
         */
-        print(longestPalindrome("abccccdd"))
-//        print(majorityElement([2,2,1,1,1,1,2,2]))
+        print(getLeastNumbers([0,0,1,2,4,2,2,3,1,4], 8))
+
+    }
+    // MARK: 面试题40. 最小的k个数
+    /*
+     输入整数数组 arr ，找出其中最小的 k 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。
+
+     示例 1：
+     输入：arr = [3,2,1], k = 2
+     输出：[1,2] 或者 [2,1]
+     
+     示例 2：
+     输入：arr = [0,1,2,1], k = 1
+     输出：[0]
+      
+     限制：
+     0 <= k <= arr.length <= 10000
+     0 <= arr[i] <= 10000
+     */
+    func getLeastNumbers(_ arr: [Int], _ k: Int) -> [Int] {
+        if k > arr.count { return [] }
+        let sortArr = arr.sorted()
+        var finalArr:[Int] = Array()
+        for i in 0..<k {
+            finalArr.append(sortArr[i])
+        }
+        return finalArr
     }
     // MARK: 最长回文串 2020.03.19
     /*
@@ -87,7 +112,6 @@ class EasyViewController: UIViewController {
                 return length1 + len2 + 1
             }
         }
-        return 0
     }
     // MARK: 多数元素 2020.03.19
     /*
@@ -212,6 +236,7 @@ class EasyViewController: UIViewController {
                 j+=1
             }
         }
+        print(nums)
         return i + 1
     }
     // MARK: 合并两个有序数组 2020.03.13
@@ -381,8 +406,6 @@ class EasyViewController: UIViewController {
         }
         return []
     }
-    
-    
     
 }
 
