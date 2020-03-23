@@ -13,39 +13,78 @@ class EasyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let obj = MyCircularDeque(3)
-        let ret_1: Bool = obj.insertFront(9)
-        let ret_2: Int = obj.getRear()
-        let ret_3: Bool = obj.insertFront(9)
-        let ret_4: Int = obj.getRear()
-        let ret_5: Bool = obj.insertLast(5)
-        let ret_6: Int = obj.getFront()
-        let ret_7: Int = obj.getRear()
-        let ret_8: Int = obj.getFront()
-        let ret_9: Bool = obj.insertLast(8)
-        let ret_10 : Bool = obj.deleteLast()
-        let ret_11: Int = obj.getFront()
-        print(ret_1)
-        print(ret_2)
-        print(ret_3)
-        print(ret_4)
-        print(ret_5)
-        print(ret_6)
-        print(ret_7)
-        print(ret_8)
-        print(ret_9)
-        print(ret_10)
-        print(ret_11)
-        
-        
-        
-        
         
         /* 旋转数组
         var arr = [1,2,3,4,5,6,7]
         rotate(&arr, 3)
         */
         
+        print(minIncrementForUnique([1,2,4,4,6,6,3]))
+//        print(middleNode([1,2,3,4,5,6]))
+        
+    }
+    // MARK: 链表的中间结点 2020.03.23
+    /*
+     给定一个带有头结点 head 的非空单链表，返回链表的中间结点。
+     如果有两个中间结点，则返回第二个中间结点。
+
+     示例 1：
+     输入：[1,2,3,4,5]
+     输出：此列表中的结点 3 (序列化形式：[3,4,5])
+     返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。
+     注意，我们返回了一个 ListNode 类型的对象 ans，这样：
+     ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL.
+     
+     示例 2：
+     输入：[1,2,3,4,5,6]
+     输出：此列表中的结点 4 (序列化形式：[4,5,6])
+     由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。
+      
+     提示：
+     给定链表的结点数介于 1 和 100 之间。
+     */
+    func middleNode(_ head: ListNode?) -> ListNode? {
+        var slow = head
+        var fast = head
+        while fast != nil && fast?.next != nil {
+            slow = slow?.next
+            fast = fast?.next?.next
+        }
+        return slow
+    }
+    // MARK: 使数组唯一的最小增量 2020.03.22
+    /*
+     给定整数数组 A，每次 move 操作将会选择任意 A[i]，并将其递增 1。
+     返回使 A 中的每个值都是唯一的最少操作次数。
+
+     示例 1:
+     输入：[1,2,2]
+     输出：1
+     解释：经过一次 move 操作，数组将变为 [1, 2, 3]。
+     
+     示例 2:
+     输入：[3,2,1,2,1,7]
+     输出：6
+     解释：经过 6 次 move 操作，数组将变为 [3, 4, 1, 2, 5, 7]。
+     可以看出 5 次或 5 次以下的 move 操作是不能让数组的每个值唯一的。
+     
+     提示：0 <= A.length <= 40000; 0 <= A[i] < 40000
+     */
+    func minIncrementForUnique(_ A: [Int]) -> Int {
+        if A.count < 2  || A.count > 40000 { return 0 }
+        // 1.数组排序，根据数组是否重复分成两个组。
+        // 2.遍历数字重复的数组，+1，再判断数字不重复的数组中是否包含这个值。若有，继续+1，若没有，将该值加入数字不重复数组
+        // 3.记录操作次数，直到数字重复的数组为空。    时间复杂度太高，会超时。
+        
+        var sortA = A.sorted()
+        var moveCount = 0
+        for i in 1..<sortA.count {
+            if sortA[i] <= sortA[i-1] {
+                moveCount += sortA[i-1] - sortA[i] + 1
+                sortA[i] = sortA[i-1] + 1
+            }
+        }
+        return moveCount
     }
     // MARK: 字母异位词分组 2020.03.20
     /*
