@@ -18,10 +18,26 @@ class EasyViewController: UIViewController {
         var arr = [1,2,3,4,5,6,7]
         rotate(&arr, 3)
         */
-        
-        print(minIncrementForUnique([1,2,4,4,6,6,3]))
+        print(twoSum([2,2,4,6], 10))
+//        print(minIncrementForUnique([1,2,4,4,6,6,3]))
 //        print(middleNode([1,2,3,4,5,6]))
         
+        print(reverse(1534236469))
+    }
+    // MARK: 整数反转 2020.3.27
+    func reverse(_ x: Int) -> Int {
+        if x == 0 { return 0 }
+        var rev = 0
+        var num = x
+        while num != 0 {
+            let a = num % 10
+            num = num / 10
+            rev = rev * 10 + a
+        }
+        if rev > Int32.max || rev < Int32.min {
+            return 0
+        }
+        return rev
     }
     // MARK: 链表的中间结点 2020.03.23
     /*
@@ -509,16 +525,34 @@ class EasyViewController: UIViewController {
         所以返回 [0, 1]
     */
     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+        
+        // 1. 暴力解法 两次遍历
+//        for i in 0..<nums.count {
+//            let num1 = nums[i]
+//            for j in (i+1)..<nums.count {
+//                let num2 = nums[j]
+//                if num1 + num2 == target {
+//                    return [i, j]
+//                }
+//            }
+//        }
+//        return []
+        
+        // 2. 哈希表
+        var map = [Int:Int]()
         for i in 0..<nums.count {
-            let num1 = nums[i]
-            for j in (i+1)..<nums.count {
-                let num2 = nums[j]
-                if num1 + num2 == target {
-                    return [i, j]
-                }
+            let value = target - nums[i]
+            if !map.keys.contains(value) {
+                map.updateValue(i, forKey: nums[i])
+            } else {
+                let index = map[value]!
+                return [i, index].reversed()
             }
+            
         }
+        
         return []
+        
     }
     
 }
