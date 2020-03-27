@@ -22,7 +22,29 @@ class EasyViewController: UIViewController {
 //        print(minIncrementForUnique([1,2,4,4,6,6,3]))
 //        print(middleNode([1,2,3,4,5,6]))
         
-        print(reverse(1534236469))
+        print(romanToInt("IVXC"))
+    }
+    // 罗马数字转整数
+    func romanToInt(_ s: String) -> Int {
+        if s.count < 1 { return 0 }
+        let romanDic = ["I": 1,
+                        "V": 5,
+                        "X": 10,
+                        "L": 50,
+                        "C": 100,
+                        "D": 500,
+                        "M": 1000]
+        let array = Array(s)
+        var num = 0
+        var i = 0
+        while i < array.count - 1 {
+            let val = romanDic[String(array[i])]!
+            let next = romanDic[String(array[i+1])]!
+            num += val < next ? -val : val
+            i += 1
+        }
+        num += romanDic[String(array.last!)]!
+        return num
     }
     // MARK: 整数反转 2020.3.27
     func reverse(_ x: Int) -> Int {
